@@ -39,3 +39,7 @@ node_modules/
 .features-gen/
 .idea
 /steps/common-steps.js
+allure-results/
+allure-report/
+playwright-report/
+/Troubleshooting
