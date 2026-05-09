@@ -26,6 +26,26 @@ export class HomePage {
         await this.logoImage.click();
     }
 
+    async clicMenuHomeLink() {
+        await this.menuHomeLink.click();
+    }
+
+    async clickMenuPracticeLink() {
+        await this.menuPracticeLink.click();
+    }
+
+    async clicMenuCoursesLink() {
+        await this.menuCoursesLink.click();
+    }
+
+    async clicMenuBlogLink() {
+        await this.menuBlogLink.click();
+    }
+
+    async clicMenuContactLink() {
+        await this.menuContactLink.click();
+    }
+
     getHomeTitle() {
         return this.homeTitle
     }

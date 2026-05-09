@@ -9,7 +9,7 @@ When('l\'utilisateur clique sur le logo du site', async ({ page }) => {
     await basePage.clicLogoImage()
 });
 
-Then('la page d\'accueil est affichée', async ({ page }) => {
+Given('la page d\'accueil est affichée', async ({ page }) => {
     const basePage = new HomePage(page);
 
     await test.step('le lien de la page d\'accueil est conforme', async () => {
