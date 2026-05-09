@@ -44,4 +44,3 @@ allure-report/
 playwright-report/
 /Troubleshooting
 *.iml
-.idea/
