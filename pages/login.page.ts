@@ -7,6 +7,7 @@ export class LoginPage extends HomePage {
 
     // Sélecteurs — éléments de la page de login
     // Déclarés en private : accessibles uniquement depuis cette classe
+    private loginTitle = this.page.getByText('Test login')
     private usernameField = this.page.getByLabel('username');
     private passwordField = this.page.getByLabel('password');
     private submitButton = this.page.getByRole('button', { name: 'Submit' });
@@ -16,6 +17,10 @@ export class LoginPage extends HomePage {
     // super(page) initialise le constructeur de BasePage avec l'objet page
     constructor(page: Page) {
         super(page);
+    }
+
+    getLoginTitle() {
+        return this.loginTitle
     }
 
     // Remplit les champs username et password avec les valeurs fournies en paramètre

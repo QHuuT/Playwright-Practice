@@ -4,16 +4,16 @@ Feature: Naviguer sur le site Test Automation Practice
     Afin d'utiliser ses différentes fonctionnalités
 
     Background:
-        Given la page d'accueil est affichée
+        Given l'utilisateur se trouve sur la page d'accueil
 
     Scenario Outline: Accéder aux différentes sections du site
-        When l'utilisateur clique sur le lien "<lien>"
-        Then la page "<page"> est affichée
+        When l'utilisateur se rend sur la page "<lien>"
+        Then la page "<url>" est affichée
 
         Examples:
-            | lien     | page     | url                                          |
+            | lien     | nomPage  | url                                          |
             | HOME     | Home     | https://practicetestautomation.com/          |
             | PRACTICE | Practice | https://practicetestautomation.com/practice/ |
             | COURSES  | Courses  | https://practicetestautomation.com/courses/  |
             | BLOG     | Blog     | https://practicetestautomation.com/blog/     |
-            | CONTACT  | Contact  | https://practicetestautomation.com/contact/                                             |
+            | CONTACT  | Contact  | https://practicetestautomation.com/contact/  |

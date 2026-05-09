@@ -5,5 +5,8 @@
     "esModuleInterop": true,
     "strict": false,
     "types": ["node"]
-  }
+  },
+  "include": [
+    "**/*.ts"
+  ]
 }

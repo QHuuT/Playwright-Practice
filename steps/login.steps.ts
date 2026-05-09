@@ -5,7 +5,7 @@ import { LoginSuccessPage } from "../pages/login-success.page";
 
 const { Given, When, Then } = createBdd();
 
-Given('la page de connexion est affichée', async ({ page }) => {
+Given('l\'utilisateur se trouve sur la page de connexion', async ({ page }) => {
     await test.step('l\'utilisateur se rend sur le site "Practice Test Automation"', async () => {
         await page.goto("https://practicetestautomation.com/practice-test-login/")
     })
@@ -49,7 +49,7 @@ When('l\'utilisateur soumet un formulaire de connexion invalide : {string}', asy
     }
     const { username, password } = identifiants[cas];
 
-    await test.step(`l'utilisateur saisit le nom d'utilisateur : "${username}"`, async () => {
+    await test.step('l\'utilisateur saisit le nom d\'utilisateur : "${username}"', async () => {
         await loginPage.remplirFormulaire(username, password)
     });
     await test.step('l\'utilisateur clique sur le bouton de connexion', async () => {
@@ -65,7 +65,7 @@ When('l\'utilisateur se déconnecte', async ({ page }) => {
     })
 });
 
-Then('la page de confirmation de connexion réussie est affichée', async ({ page }) => {
+Then('l\'utilisateur est redirigé vers la page de confirmation de connexion réussie', async ({ page }) => {
     const loginSuccessPage = new LoginSuccessPage(page);
 
     await test.step('le lien de la page de confirmation est conforme', async () => {

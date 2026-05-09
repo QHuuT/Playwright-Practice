@@ -4,11 +4,11 @@ Feature: Se connecter sur le site "Practice Test Automation"
     Afin de pouvoir accéder à l'ensemble des fonctionnalités du site
 
     Background:
-        Given la page de connexion est affichée
+        Given l'utilisateur se trouve sur la page de connexion
 
     Scenario: Se connecter - cas passants
         When l'utilisateur soumet un formulaire de connexion valide
-        Then la page de confirmation de connexion réussie est affichée
+        Then l'utilisateur est redirigé vers la page de confirmation de connexion réussie
 
     Scenario Outline: Se connecter - cas non passants
         When l'utilisateur soumet un formulaire de connexion invalide : "<cas>"
@@ -26,5 +26,5 @@ Feature: Se connecter sur le site "Practice Test Automation"
 
     Scenario: Retour sur la page d'accueil
         When l'utilisateur clique sur le logo du site
-        Then la page d'accueil est affichée
+        Then l'utilisateur est redirigé vers la page d'accueil
 

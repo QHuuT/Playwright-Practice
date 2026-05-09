@@ -4,8 +4,10 @@ Feature: Se déconnecter du le site "Practice Test Automation"
     Afin de mettre fin à ma session d'utilisation du site
 
     Background:
-        Given l'utilisateur est connecté
+        Given l'utilisateur se trouve sur la page de connexion
+        When l'utilisateur soumet un formulaire de connexion valide
+        Then l'utilisateur est redirigé vers la page de confirmation de connexion réussie
 
     Scenario: Déconnexion - succès
         When l'utilisateur se déconnecte
-        Then la page de connexion est affichée
+        Then l'utilisateur est redirigé vers la page de connexion

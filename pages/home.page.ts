@@ -6,11 +6,11 @@ export class HomePage {
 
     private logoImage = this.page.getByAltText('Practice Test Automation');
     private homeTitle = this.page.getByText('Hello');
-    private menuHomeLink = this.page.getByRole('link', { name : 'Home' })
-    private menuPracticeLink = this.page.getByRole('link', { name : 'Practice' })
-    private menuCoursesLink = this.page.getByRole('link', { name : 'Courses' })
-    private menuBlogLink = this.page.getByRole('link', { name : 'Blog' })
-    private menuContactLink = this.page.getByRole('link', { name : 'Contact' })
+    private menuHomeLink = this.page.locator('nav').getByRole('link', { name : 'Home', exact: true })
+    private menuPracticeLink = this.page.locator('nav').getByRole('link', { name : 'Practice', exact: true })
+    private menuCoursesLink = this.page.locator('nav').getByRole('link', { name : 'Courses', exact: true })
+    private menuBlogLink = this.page.locator('nav').getByRole('link', { name : 'Blog', exact: true })
+    private menuContactLink = this.page.locator('nav').getByRole('link', { name : 'Contact', exact: true })
 
     // Constructeur — reçoit l'objet page de Playwright
     // "protected" permet aux classes enfants (LoginPage, etc.) d'accéder à this.page
@@ -26,24 +26,15 @@ export class HomePage {
         await this.logoImage.click();
     }
 
-    async clicMenuHomeLink() {
-        await this.menuHomeLink.click();
-    }
-
-    async clickMenuPracticeLink() {
-        await this.menuPracticeLink.click();
-    }
-
-    async clicMenuCoursesLink() {
-        await this.menuCoursesLink.click();
-    }
-
-    async clicMenuBlogLink() {
-        await this.menuBlogLink.click();
-    }
-
-    async clicMenuContactLink() {
-        await this.menuContactLink.click();
+    async clicMenuLink(lien: 'Home' | 'Practice' | 'Courses' | 'Blog' | 'Contact') {
+        const liens = {
+            'Home': this.menuHomeLink,
+            'Practice': this.menuPracticeLink,
+            'Courses': this.menuCoursesLink,
+            'Blog': this.menuBlogLink,
+            'Contact': this.menuContactLink
+        }
+        await liens[lien].click();
     }
 
     getHomeTitle() {

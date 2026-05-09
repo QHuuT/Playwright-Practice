@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import {expect, Page} from '@playwright/test';
 import { HomePage } from './home.page';
 
 export class LoginSuccessPage extends HomePage {
@@ -9,6 +9,10 @@ export class LoginSuccessPage extends HomePage {
 
     constructor(page: Page) {
         super(page);
+    }
+
+    async verifierURL(url: string) {
+        await expect(this.page).toHaveURL(url);
     }
 
     getPageTitle() {
