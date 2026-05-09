@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx bddgen && npx playwright test",
+    "report": "npx allure generate allure-results && npx allure open",
+    "test:report": "rmdir /s /q allure-results & npx bddgen && npx playwright test && npx allure generate allure-results && npx allure open"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

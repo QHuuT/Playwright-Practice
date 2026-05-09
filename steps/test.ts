@@ -1,5 +1,7 @@
 import { createBdd } from "playwright-bdd";
 import { test, expect } from "@playwright/test";
+import { LoginPage } from "../pages/login.page";
+import { LoginSuccessPage } from "../pages/login-success.page";
 
 const { Given, When, Then } = createBdd();
 
@@ -10,18 +12,17 @@ Given('l\'utilisateur est sur la page de connexion', async ({ page }) => {
 });
 
 When('l\'utilisateur soumet un formulaire de connexion valide', async ({ page }) => {
-    await test.step('l\'utilisateur saisit le nom d\'utilisateur', async () => {
-        await page.getByLabel('username').fill('student')
+    const loginPage = new LoginPage(page);
+    await test.step('l\'utilisateur saisit ses identifiants', async () => {
+        await loginPage.remplirFormulaire('student', 'Password123')
     });
-    await test.step('l\'utilisateur saisit le mot de passe', async () => {
-        await page.getByLabel('password').fill('Password123')
-    });
-    await test.step('l\'utilisateur clique sur le bouton de connexion"', async () => {
-        await page.getByRole('button', { name: 'Submit'}).click()
+    await test.step('l\'utilisateur clique sur le bouton de connexion', async () => {
+        await loginPage.soumettreFormulaire()
     })
 });
 
 When('l\'utilisateur soumet un formulaire de connexion invalide : {string}', async ({ page }, cas: string) => {
+    const loginPage = new LoginPage(page);
     const identifiants = {
         "Nom d'utilisateur vide": { username: '', password: 'Password123' },
         "Nom d'utilisateur incorrect": { username: 'incorrectUsername', password: 'Password123' },
@@ -30,41 +31,41 @@ When('l\'utilisateur soumet un formulaire de connexion invalide : {string}', asy
     }
     const { username, password } = identifiants[cas];
 
-    await test.step('l\'utilisateur saisit le nom d\'utilisateur', async () => {
-        await page.getByLabel('username').fill(username)
+    await test.step(`l'utilisateur saisit le nom d'utilisateur : "${username}"`, async () => {
+        await loginPage.remplirFormulaire(username, password)
     });
-    await test.step('l\'utilisateur saisit le mot de passe', async () => {
-        await page.getByLabel('password').fill(password)
-    });
-    await test.step('l\'utilisateur clique sur le bouton de connexion"', async () => {
-        await page.getByRole('button', { name: 'Submit'}).click()
+    await test.step('l\'utilisateur clique sur le bouton de connexion', async () => {
+        await loginPage.soumettreFormulaire()
     })
 });
 
 Then('l\'utilisateur est redirigé vers une page de confirmation de la connexion réussie', async ({ page }) => {
+    const loginSuccessPage = new LoginSuccessPage(page);
     await test.step('le lien de la page de confirmation est conforme', async () => {
-        await expect(page).toHaveURL('https://practicetestautomation.com/logged-in-successfully/')
+        await loginSuccessPage.verifierURL('https://practicetestautomation.com/logged-in-successfully/')
     });
     await test.step('Le titre de la page de confirmation est conforme', async () => {
-        await expect(page.getByText('Logged In Successfully')).toBeVisible()
+        await expect(loginSuccessPage.getPageTitle()).toBeVisible()
     });
     await test.step('Le message de bienvenue est conforme', async () => {
-        await expect(page.getByText('Congratulations student. You successfully logged in!')).toBeVisible()
+        await expect(loginSuccessPage.getPageWelcome()).toBeVisible()
     });
     await test.step('Le bouton de déconnexion est visible', async () => {
-        await expect(page.getByRole('link', { name: 'Log out' }), "Le bouton de déconnexion est visible").toBeVisible()
+        await expect(loginSuccessPage.getLogoutLink()).toBeVisible()
     })
 });
 
 Then('le message d\'erreur {string} est affiché', async ({ page }, erreur: string) => {
-    await test.step('l\'e lien de la page de connexion ne change pas', async () => {
-        await expect(page).toHaveURL('https://practicetestautomation.com/practice-test-login/')
+    const loginPage = new LoginPage(page);
+    await test.step('le lien de la page de connexion ne change pas', async () => {
+        await loginPage.verifierURL('https://practicetestautomation.com/practice-test-login/')
     });
     await test.step('l\'erreur de connexion est visible', async () => {
-        await expect(page.locator('#error')).toHaveText(erreur)
+        await expect(loginPage.verifierMessageErreur()).toHaveText(erreur)
     })
 });
 
 Then('le champ mot de passe permet de masquer le texte saisi', async ({ page }) => {
-    await expect(page.getByLabel('password')).toHaveAttribute('type', 'password')
+    const loginPage = new LoginPage(page);
+    await expect(loginPage.verifierTypeChampMotDePasse()).toHaveAttribute('type', 'password')
 })

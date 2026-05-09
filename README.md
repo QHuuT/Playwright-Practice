@@ -76,7 +76,7 @@ C'est une surcouche de Playwright qui permet d'écrire les tests en Gherkin (Giv
     npm install -D playwright-bdd             | Si PlayWright n'est pas déjà installé
     npm i -D playwright-bdd                   | Si PlayWright est déjà installé
 
-## Installation Allure
+### Installation Allure
 
 Permet de générer un reporting amélioré par rapport à l'outil de reporting par défaut
 
@@ -96,3 +96,57 @@ Commandes utiles :
 
     npx allure generate allure-results  | Générer le rapport
     npx allure open                     | Ouvrir le rapport
+
+## Page Object Model
+
+Le Page Object Model est un **design pattern** de test qui consiste à créer une classe par page de l'application. Chaque classe centralise les sélecteurs et les actions disponibles sur cette page.
+
+### Structure
+
+    pages/
+    ├── login.page.ts       ← tout ce qui concerne la page de login
+    ├── dashboard.page.ts   ← tout ce qui concerne le dashboard
+
+### Composition d'un Page Object
+
+Un Page Object est composé de deux éléments :
+
+**1. Les sélecteurs** — les éléments de la page avec lesquels on interagit :
+
+```typescript
+private usernameField = this.page.getByLabel('username');
+private passwordField = this.page.getByLabel('password');
+private submitButton = this.page.getByRole('button', { name: 'Submit' });
+```
+
+**2. Les actions** — les interactions qu'un utilisateur peut effectuer sur la page :
+
+```typescript
+async connecter(username: string, password: string) {
+    await this.usernameField.fill(username);
+    await this.passwordField.fill(password);
+    await this.submitButton.click();
+}
+```
+
+### Flux d'exécution
+
+    .feature → steps → Page Object → Playwright
+
+- Le `.feature` décrit **quoi** tester (vision métier)
+- Le step décrit **quel Page Object** utiliser
+- Le Page Object décrit **comment** interagir avec la page
+- Playwright **exécute** les actions sur le navigateur
+
+### Bénéfices
+
+| Sans POM | Avec POM |
+|---|---|
+| Sélecteurs dupliqués dans chaque step | Sélecteurs centralisés dans la classe |
+| Modification dans N fichiers si un sélecteur change | Modification dans 1 seul fichier |
+| Logique technique mélangée aux steps | Séparation claire des responsabilités |
+| Code difficile à maintenir | Code réutilisable et maintenable |
+
+### Exemple concret
+
+Sans POM, si le bouton "Submit" change de nom, il faut modifier **tous les steps** qui l'utilisent. Avec le POM, on ne modifie que la classe `LoginPage` et tous les tests sont automatiquement mis à jour.
