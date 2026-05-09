@@ -6,9 +6,9 @@ Feature: Se connecter sur le site "Practice Test Automation"
     Background:
         Given l'utilisateur est sur la page de connexion
 
-    Scenario: Se connecter avec succès
+    Scenario: Se connecter - cas passants
         When l'utilisateur soumet un formulaire de connexion valide
-        Then l'utilisateur est redirigé vers une page de confirmation de la connexion réussie
+        Then la page de confirmation de connexion réussie est affichée
 
     Scenario Outline: Se connecter - cas non passants
         When l'utilisateur soumet un formulaire de connexion invalide : "<cas>"
@@ -23,3 +23,8 @@ Feature: Se connecter sur le site "Practice Test Automation"
 
     Scenario: La saisie du mot de passe est masquée
         Then le champ mot de passe permet de masquer le texte saisi
+
+    Scenario: Retour sur la page d'accueil
+        When l'utilisateur clique sur le logo du site
+        Then la page d'accueil est affichée
+

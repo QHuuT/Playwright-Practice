@@ -3,7 +3,7 @@ import { BasePage } from './base.page';
 
 export class LoginSuccessPage extends BasePage {
 
-    private pageTitle = this.page.getByText('Logged In Successfully');
+    private loginTitle = this.page.getByText('Logged In Successfully');
     private pageWelcome = this.page.getByText('Congratulations student. You successfully logged in!');
     private logoutLink = this.page.getByRole('link', { name : 'Log out' })
 
@@ -12,7 +12,7 @@ export class LoginSuccessPage extends BasePage {
     }
 
     getPageTitle() {
-        return this.pageTitle;
+        return this.loginTitle;
     }
 
     getPageWelcome() {
