@@ -11,6 +11,7 @@
 - [ ] Installation Playwright
 - [ ] Installation Playwright-bdd
 - [ ] Installation Allure (Reporting)
+- [ ] Bonnes pratiques : Page Object Model
 
 ## Mise en place du projet
 
@@ -91,6 +92,27 @@ Il faut ensuite modifier le fichier playwright.config.ts
             ['allure-playwright'] // reporter dédié BDD
             ]
         }
+
+Configuration spécifique : 
+
+Commande `npm test:report`
+
+    ```bash
+    A ajouter dans package.json
+      
+    "scripts": {
+        "test:report": rmdir /s /q allure-results & rmdir /s /q allure-report & npx bddgen && npx playwright test && npx allure generate allure-results && npx allure open
+    }
+    ```
+
+| Commande | Description |
+|---|---|
+| `rmdir /s /q allure-results` | Supprime le dossier `allure-results` et tout son contenu sans demander de confirmation |
+| `rmdir /s /q allure-report` | Supprime le dossier `allure-report` et tout son contenu sans demander de confirmation |
+| `npx bddgen` | Génère les fichiers de test Playwright à partir des fichiers `.feature` |
+| `npx playwright test` | Lance tous les tests Playwright et génère les résultats bruts dans `allure-results` |
+| `npx allure generate allure-results` | Transforme les résultats bruts de `allure-results` en rapport HTML dans `allure-report` |
+| `npx allure open` | Ouvre le rapport HTML dans le navigateur |
 
 Commandes utiles : 
 

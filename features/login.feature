@@ -4,7 +4,7 @@ Feature: Se connecter sur le site "Practice Test Automation"
     Afin de pouvoir accéder à l'ensemble des fonctionnalités du site
 
     Background:
-        Given l'utilisateur est sur la page de connexion
+        Given la page de connexion est affichée
 
     Scenario: Se connecter - cas passants
         When l'utilisateur soumet un formulaire de connexion valide

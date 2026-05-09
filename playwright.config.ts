@@ -40,7 +40,7 @@ export default defineConfig({
     navigationTimeout: 15000,
 
     // Timeout maximum pour les actions (click, fill, toBeVisible...)
-    actionTimeout: 10000,
+    actionTimeout: 15000,
   },
 
   projects: [

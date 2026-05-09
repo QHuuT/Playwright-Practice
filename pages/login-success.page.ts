@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
-import { BasePage } from './base.page';
+import { HomePage } from './home.page';
 
-export class LoginSuccessPage extends BasePage {
+export class LoginSuccessPage extends HomePage {
 
     private loginTitle = this.page.getByText('Logged In Successfully');
     private pageWelcome = this.page.getByText('Congratulations student. You successfully logged in!');

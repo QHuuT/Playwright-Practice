@@ -1,9 +1,9 @@
 import { Page } from '@playwright/test';
-import { BasePage } from './base.page';
+import { HomePage } from './home.page';
 
 // LoginPage hérite de BasePage — elle dispose de toutes ses méthodes communes
 // comme verifierURL()
-export class LoginPage extends BasePage {
+export class LoginPage extends HomePage {
 
     // Sélecteurs — éléments de la page de login
     // Déclarés en private : accessibles uniquement depuis cette classe

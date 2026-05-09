@@ -5,9 +5,27 @@ import { LoginSuccessPage } from "../pages/login-success.page";
 
 const { Given, When, Then } = createBdd();
 
-Given('l\'utilisateur est sur la page de connexion', async ({ page }) => {
+Given('la page de connexion est affichée', async ({ page }) => {
     await test.step('l\'utilisateur se rend sur le site "Practice Test Automation"', async () => {
         await page.goto("https://practicetestautomation.com/practice-test-login/")
+    })
+});
+
+Given('l\'utilisateur est connecté', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const loginSuccessPage = new LoginSuccessPage(page);
+
+    await test.step('l\'utilisateur se rend sur la page de connexion', async () => {
+        await page.goto('https://practicetestautomation.com/practice-test-login/');
+    });
+    await test.step('l\'utilisateur saisit ses identifiants', async () => {
+        await loginPage.remplirFormulaire('student', 'Password123')
+    });
+    await test.step('l\'utilisateur clique sur le bouton de connexion', async () => {
+        await loginPage.soumettreFormulaire()
+    });
+    await test.step('le lien de la page de confirmation est conforme', async () => {
+        await loginSuccessPage.verifierURL('https://practicetestautomation.com/logged-in-successfully/')
     })
 });
 
@@ -36,6 +54,14 @@ When('l\'utilisateur soumet un formulaire de connexion invalide : {string}', asy
     });
     await test.step('l\'utilisateur clique sur le bouton de connexion', async () => {
         await loginPage.soumettreFormulaire()
+    })
+});
+
+When('l\'utilisateur se déconnecte', async ({ page }) => {
+    const logoutPage = new LoginSuccessPage(page);
+
+    await test.step('l\'utilisateur clique sur le bouton "Log Out"', async () => {
+        await logoutPage.seDeconnecter()
     })
 });
 
